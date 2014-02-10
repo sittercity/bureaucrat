@@ -9,7 +9,7 @@ module Bureaucrat
       include SafeData
 
       def to_s
-        self.class.new(super)
+        SafeString.new(self)
       end
 
       def +(rhs)
@@ -83,7 +83,7 @@ module Bureaucrat
     def format_string(string, values)
       output = string.dup
       values.each_pair do |variable, value|
-        output.gsub!(/%\(#{variable}\)s/, value.to_s)
+        output.gsub!(/%\(#{variable}\)s/, conditional_escape(value.to_s))
       end
       output
     end

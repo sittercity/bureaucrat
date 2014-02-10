@@ -23,6 +23,10 @@ class StringNameForm < Bureaucrat::Form
   field 'string_name', Bureaucrat::Fields::CharField.new
 end
 
+class ChoiceForm < Bureaucrat::Form
+  field 'option', Bureaucrat::Fields::ChoiceField.new([['one', 'Choice']])
+end
+
 module FormTests
   class Test_field_names < BureaucratTestCase
     def test_names_are_converted_to_symbols
@@ -115,6 +119,14 @@ module FormTests
       assert_equal('VALID_NAME', form.cleaned_data[:name])
     end
 
+  end
+
+  class Test_form_escapes_error_messages < BureaucratTestCase
+    def test_escapes_error_messages
+      form = ChoiceForm.new(option: "<script>alert('XSS')</script>")
+      form.full_clean
+      refute_includes(form.errors[:option], "<script>alert('XSS')</script>")
+    end
   end
 
   class Test_populating_objects < BureaucratTestCase
