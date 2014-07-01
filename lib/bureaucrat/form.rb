@@ -46,6 +46,8 @@ module Bureaucrat
     attr_accessor :cleaned_data
     # Fields belonging to this form
     attr_accessor :fields
+    # Injected form section options belonging to this form
+    attr_accessor :form_section_options
 
     # Checks if this form was initialized with data.
     def bound? ; @is_bound; end
@@ -79,6 +81,7 @@ module Bureaucrat
       @empty_permitted = options.fetch(:empty_permitted, false)
       @errors = nil
       @changed_data = nil
+      @form_section_options = options[:form_section_options]
 
       @fields = self.class.base_fields.dup
       @fields.each { |key, value| @fields[key] = value.dup }
