@@ -79,6 +79,7 @@ module Bureaucrat
       @empty_permitted = options.fetch(:empty_permitted, false)
       @errors = nil
       @changed_data = nil
+      @form_section_options = options[:form_section_options]
 
       @fields = self.class.base_fields.dup
       @fields.each { |key, value| @fields[key] = value.dup }
