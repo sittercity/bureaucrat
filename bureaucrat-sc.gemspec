@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.files       += Dir[File.join('locales', '**', '*.yml')]
 
   s.add_runtime_dependency 'i18n',          '~> 0.6'
-  s.add_runtime_dependency 'activesupport', '<= 4.2.1'
+  s.add_runtime_dependency 'activesupport', '< 4.3'
 
   s.add_development_dependency 'rake',  '10.0.3'
   s.add_development_dependency 'rspec', '2.12.0'
