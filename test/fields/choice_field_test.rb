@@ -16,7 +16,7 @@ module ChoiceFieldTests
   class Test_valid < BureaucratTestCase
     def setup
       @choices = [[false, 'In-person'], [true, 'Virtual']]
-      @choices_hash = [[{ value: "able" }, "able"], [{ value: "baker" }, "Baker"]]
+      @choices_hash = [[{ value: false }, "In-person"], [{ value: true }, "Virtual"]]
       @field = Bureaucrat::Fields::ChoiceField.new(@choices)
       @field_hash = Bureaucrat::Fields::ChoiceField.new(@choices_hash)
     end
@@ -24,18 +24,32 @@ module ChoiceFieldTests
     def test_validate_false_values
       assert_nothing_raised do
         @field.validate(0)
+        @field_hash.validate(0)
+
         @field.validate("0")
+        @field_hash.validate("0")
+
         @field.validate(false)
+        @field_hash.validate(false)
+
         @field.validate("false")
+        @field_hash.validate("false")
       end
     end
 
     def test_validate_true_values
       assert_nothing_raised do
         @field.validate(1)
+        @field_hash.validate(1)
+
         @field.validate("1")
+        @field_hash.validate("1")
+
         @field.validate(true)
+        @field_hash.validate(true)
+
         @field.validate("true")
+        @field_hash.validate("true")
       end
     end
   end
