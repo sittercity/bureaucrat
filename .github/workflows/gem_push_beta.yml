@@ -4,13 +4,12 @@ on: [pull_request]
 
 env:
   BUNDLER_ACCESS_TOKEN: ${{ secrets.TECH_OPS_ACCESS_TOKEN }}
+  BUNDLE_RUBYGEMS__PKG__GITHUB__COM: ${{ secrets.TECH_OPS_ACCESS_TOKEN }}
 
 jobs:
   build:
     name: Test + Build + Publish
     runs-on: ubuntu-20.04
-    env:
-      BUNDLER_ACCESS_TOKEN: ${{ secrets.TECH_OPS_ACCESS_TOKEN }}
 
     services:
       redis:
@@ -21,22 +20,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Ruby 3.2.4
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-
-      - name: Configure Gem Cache
-        uses: actions/cache@v2
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
+          bundler-cache: true
 
       - name: Setup Tests
-        run: |
-          gem install bundler:1.17.3
-          bundle config rubygems.pkg.github.com x-access-token:$BUNDLER_ACCESS_TOKEN
-          make setup
+        run: make setup
 
       - name: Test
         run: make test
