@@ -179,7 +179,7 @@ module FormTests
 
       assert_equal('', obj.name)
       assert_equal('', obj.color)
-      assert_equal(nil, obj.number)
+      assert_nil(obj.number)
     end
 
     def test_attaches_form_name_when_field_is_added

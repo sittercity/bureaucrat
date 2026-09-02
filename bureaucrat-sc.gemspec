@@ -21,11 +21,14 @@ Gem::Specification.new do |s|
   s.files       += Dir[File.join('locales', '**', '*.yml')]
   s.metadata    = { "github_repo" => "ssh://github.com/sittercity/bureaucrat" }
 
-  s.add_runtime_dependency 'i18n'
-  s.add_runtime_dependency 'activesupport', '>= 7.0', '< 7.3'
+  s.required_ruby_version = '>= 3.2'
 
-  s.add_development_dependency 'rake',  '12.0.0'
-  s.add_development_dependency 'rspec', '3.6.0'
+  s.add_runtime_dependency 'i18n'
+  s.add_runtime_dependency 'activesupport', '~> 8.1.3'
+
+  s.add_development_dependency 'rake',  '~> 13.0'
+  s.add_development_dependency 'rexml'
+  s.add_development_dependency 'rspec', '~> 3.13'
 
   s.require_paths = ['lib']
 end

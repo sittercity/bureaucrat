@@ -22,7 +22,7 @@ module DateFieldTests
     def test_return_nil_if_value_is_empty_and_required_is_false
       @field.required = false
       empty_value = ''
-      assert_equal(nil, @field.clean(empty_value))
+      assert_nil(@field.clean(empty_value))
     end
 
     def test_return_value_if_value_is_already_date

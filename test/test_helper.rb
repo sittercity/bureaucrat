@@ -8,7 +8,7 @@ require 'rexml/document'
 root = File.expand_path('../..', __FILE__)
 I18n.load_path += Dir[File.join(root, 'test', 'locales', '**', '*.yml').to_s]
 
-class BureaucratTestCase < MiniTest::Unit::TestCase
+class BureaucratTestCase < Minitest::Test
 
   def assert_nothing_raised(&block)
     block.call
