@@ -14,7 +14,15 @@ setup:
 
 .PHONY: test
 test:
+	bundle exec rake
+
+.PHONY: spec
+spec:
 	bundle exec rspec
+
+.PHONY: unit-test
+unit-test:
+	bundle exec rake test
 
 integration-test:
 

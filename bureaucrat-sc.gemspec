@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'activesupport', '~> 8.1.3'
 
   s.add_development_dependency 'rake',  '~> 13.0'
+  s.add_development_dependency 'rexml'
   s.add_development_dependency 'rspec', '~> 3.13'
 
   s.require_paths = ['lib']

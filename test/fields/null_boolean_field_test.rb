@@ -24,7 +24,7 @@ module NullBooleanFieldTests
 
     def test_return_nil_for_null_values
       @null_values.each do |null_value|
-        assert_equal(nil, @field.clean(null_value))
+        assert_nil(@field.clean(null_value))
       end
     end
 

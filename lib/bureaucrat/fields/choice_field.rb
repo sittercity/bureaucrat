@@ -41,9 +41,11 @@ module Bureaucrat
       end
 
       def validate(value)
-        super(value)
+        if required && (value.nil? || (value != false && value.blank?))
+          raise ValidationError.new(error_messages[:required])
+        end
 
-        unless !value || value.blank? || valid_value?(value)
+        unless value.nil? || (value != false && value.blank?) || valid_value?(value)
           msg = Utils.format_string(error_messages[:invalid_choice],
                                     value: value)
           raise ValidationError.new(msg)
@@ -55,16 +57,19 @@ module Bureaucrat
           if v.is_a?(Array)
             # This is an optgroup, so look inside the group for options
             v.each do |k2, v2|
+              return true if value == k2
               return true if value == k2.to_s
               return true if value.to_s == "0" && k2 == false
               return true if value.to_s == "1" && k2 == true
             end
           elsif k.is_a?(Hash)
             # this is a hash valued choice list
+            return true if value == k[:value]
             return true if value == k[:value].to_s
             return true if value.to_s == "0" && k[:value] == false
             return true if value.to_s == "1" && k[:value] == true
           else
+            return true if value == k
             return true if value == k.to_s
             return true if value.to_s == "0" && k == false
             return true if value.to_s == "1" && k == true
